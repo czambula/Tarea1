@@ -1,0 +1,54 @@
+const int boton_incrementar = 2;
+const int boton_disminuir = 4;
+const int led_incrementar = 13;
+const int led_disminuir = 12;
+int p_evaluar = 0;
+int n_evaluar = 0;
+int s_evaluar = 0;
+int m_evaluar = 0;
+int estado = 0;
+int estad = 0;
+int cont = 0;
+
+
+void setup() 
+{
+  Serial.begin(9600);
+  pinMode(boton_incrementar, INPUT);
+  pinMode(led_incrementar, OUTPUT);
+  pinMode(boton_disminuir, INPUT);
+  pinMode(led_disminuir, OUTPUT);
+}
+
+
+void loop()
+{
+  p_evaluar = digitalRead(boton_incrementar);
+  s_evaluar = digitalRead(boton_disminuir);
+  
+  if((p_evaluar == HIGH) && (n_evaluar == LOW))
+  {
+    estado = 1 - estado;
+    if ((estado == 1)||(estado == 0))
+    {
+      digitalWrite(led_incrementar, HIGH);
+      digitalWrite(led_disminuir, LOW);
+      cont += p_evaluar;
+    }
+    delay(100);
+  }
+  
+  if((s_evaluar == HIGH) && (m_evaluar == LOW))
+  {
+    estad = 1 - estad;
+    if ((estad == 1)||(estad == 0))
+    {
+      digitalWrite(led_disminuir, HIGH);
+      digitalWrite(led_incrementar, LOW);
+      cont -= s_evaluar;
+    }
+    delay(100);
+  }
+  
+  	Serial.println(cont);
+}
